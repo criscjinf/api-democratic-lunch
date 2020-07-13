@@ -46,7 +46,7 @@ class Voting {
 
     $_unlockRestaurants() {
         // Libera os restaurantes para votação se não houver nenhum disponível para próxima eleição ou se for sábado
-        if (this.voteList.length = 1 || new Date().getDay() === 7) {
+        if (this.voteList.length === 1 || new Date().getDay() === 7) {
             restaurants.forEach(el => el.locked = false);
         }
     }

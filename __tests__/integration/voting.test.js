@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../../src/app");
 const factory = require("../factories");
-
+const { votings } = require("../../src/repositories/voting")
 
 const votingTest = async (employer_id, restaurant_id, status_expect) => {
     let vote = {
@@ -25,7 +25,8 @@ describe('Votação', () => {
         let employer2 = factory.newEmployer();
         factory.newRestaurant();
         factory.newRestaurant();
-
+        factory.newRestaurant();
+        votings.deleteAll();
         await votingTest(
             employer1.id,
             voted_restaurant.id,
@@ -42,6 +43,9 @@ describe('Votação', () => {
     it('Não deve permitir iniciar uma votação emquanto outra estiver em andamento', async () => {
         factory.newRestaurant();
         factory.newRestaurant();
+        factory.newRestaurant();
+        factory.newRestaurant();
+        votings.deleteAll();
         await request(app)
             .post('/votings/newvoting')
             .set('accept', 'application/json')
