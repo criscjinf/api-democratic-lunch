@@ -60,7 +60,7 @@ class Voting {
         this.votingClosed = true;
         this.$_unlockEmployees();
         this.$_lockedRestaurantWinner();
-        this.$_unlockRestaurants();
+        // this.$_unlockRestaurants();
     }
 
     registerVote(employer, restaurant_id) {
@@ -106,7 +106,7 @@ class Votings {
     }
 
     newVoting() {
-        if (restaurants.length > 1) {
+        if (restaurants.length <= 1) {
             throw('Necessário cadastrar mais restaurantes para a votação');
         };
 

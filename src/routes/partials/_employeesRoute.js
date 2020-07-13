@@ -8,7 +8,9 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    if (!req.body.hasOwnProperty('name') || !req.body.hasOwnProperty('cpf') || !req.body.hasOwnProperty('email')) {
+    if (!req.body.name || req.body.name === '' || 
+        !req.body.cpf || req.body.cpf === '' ||
+        !req.body.email || req.body.email === '') {
         res.status(400).send('Atenção! Os campos name, cpf e email devem ser preenchidos');
     } else {
         let employer = employees.find( el => el.cpf === req.body.cpf)

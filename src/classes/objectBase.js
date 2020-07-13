@@ -19,8 +19,8 @@ class ObjectBase {
         }
     }
     checkFilters(filters) {
-        response = true
-        if (typeof filters === "object") {
+        let response = true;
+        if (filters && typeof filters === "object") {
             for (let [key, value] of Object.entries(filters)) {
                 response = this.hasOwnProperty(key) ? this[key] === value : false
                 if (!response) {

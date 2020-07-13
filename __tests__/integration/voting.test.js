@@ -18,7 +18,7 @@ const votingTest = async (employer_id, restaurant_id, status_expect) => {
     voting.endVoting();
 };
 
-describe('Votando no mesmo resutaurante dois dias seguidos', () => {
+describe('Votação', () => {
     it('Não deve permitir votar mais de uma vez na semana no mesmo restaurante', async () => {
         let voted_restaurant = factory.newRestaurant();
         let employer1 = factory.newEmployer()
@@ -40,11 +40,13 @@ describe('Votando no mesmo resutaurante dois dias seguidos', () => {
     });
 
     it('Não deve permitir iniciar uma votação emquanto outra estiver em andamento', async () => {
+        factory.newRestaurant();
+        factory.newRestaurant();
         await request(app)
             .post('/votings/newvoting')
             .set('accept', 'application/json')
             .send()
-            .expect(200);
+            .expect(201);
 
         await request(app)
             .post('/votings/newvoting')

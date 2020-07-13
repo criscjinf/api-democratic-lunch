@@ -16,7 +16,12 @@ router.post('/newvoting', (req, res) => {
     if (restaurants.length === 0) {
         res.status(400).send('Erro ao iniciar votação! Necessário cadastrar restaurantes antes de iniciar uma votação')
     } else {
-        res.status(201).send(votings.newVoting());
+        try{
+            res.status(201).send(votings.newVoting());
+        }
+        catch(error) {
+            res.status(400).send(`${error}`)
+        }
     }
 });
 
