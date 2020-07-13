@@ -40,7 +40,7 @@ describe('Votação', () => {
         );
     });
 
-    it('Não deve permitir iniciar uma votação emquanto outra estiver em andamento', async () => {
+    it('Não deve permitir iniciar uma votação enquanto outra estiver em andamento', async () => {
         factory.newRestaurant();
         factory.newRestaurant();
         factory.newRestaurant();
