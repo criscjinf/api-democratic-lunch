@@ -1,9 +1,6 @@
 const request = require("supertest");
 const app = require("../../src/app");
 const factory = require("../factories");
-const { restaurants } = require('../../src/repositories/restaurants');
-const { employees } = require('../../src/repositories/employees');
-const { votings } = require('../../src/repositories/voting');
 
 
 const votingTest = async (employer_id, restaurant_id, status_expect) => {
@@ -11,7 +8,7 @@ const votingTest = async (employer_id, restaurant_id, status_expect) => {
         restaurant_id: restaurant_id,
         employer_id: employer_id
     };
-    let voting = factory.newVoting();
+    let voting = factory.newVoting();// Força a criação de uma nova votação 
     await request(app)
         .post(`/votings/${voting.id}/vote`)
         .set('accept', 'application/json')
@@ -40,6 +37,20 @@ describe('Votando no mesmo resutaurante dois dias seguidos', () => {
             voted_restaurant.id,
             400
         );
+    });
+
+    it('Não deve permitir iniciar uma votação emquanto outra estiver em andamento', async () => {
+        await request(app)
+            .post('/votings/newvoting')
+            .set('accept', 'application/json')
+            .send()
+            .expect(200);
+
+        await request(app)
+            .post('/votings/newvoting')
+            .set('accept', 'application/json')
+            .send()
+            .expect(400);
     })
 
 });

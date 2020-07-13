@@ -1,4 +1,4 @@
-export default class DateUtils {
+class DateUtils {
     static formatDateBr(date) {
         let day = date.getDate().toString().padStart(2, '0');
         let month  = (date.getMonth()+1).toString().padStart(2, '0');
@@ -7,3 +7,5 @@ export default class DateUtils {
     }
 
 }
+
+module.exports = DateUtils

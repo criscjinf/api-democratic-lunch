@@ -1,4 +1,4 @@
-import ObjectBase from '../classes/objectBase'
+const ObjectBase = require('../classes/objectBase');
 var restaurants = []
 class Restaurant extends ObjectBase {
     constructor (name, address, phone) {

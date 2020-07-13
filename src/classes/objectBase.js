@@ -1,4 +1,4 @@
-import { response } from "express";
+const { response } = require("express");
 
 class ObjectBase {
     constructor (list, locked_props) {
@@ -32,5 +32,4 @@ class ObjectBase {
     }
 }
 
-export default ObjectBase
-// modules.export  = ObjectBase
+module.exports = ObjectBase
