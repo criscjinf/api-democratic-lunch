@@ -1,4 +1,4 @@
-import DateUtils from '../lib/dateUtils';
+const DateUtils = require('../lib/dateUtils');
 var { restaurants } = require('./restaurants');
 var { employees } = require('./employees');
 const config = require('./configs');
@@ -37,7 +37,8 @@ class Voting {
         if (date > endDate) {
             date.setDate(date.getDate() +1)
         }
-        this.date = DateUtils.formatDateBr(date);
+        this.date = date.toLocaleDateString();
+        this.date_br = DateUtils.formatDateBr(date);
     }
     $_unlockEmployees () {
         employees.forEach(el => el.locked = false);
@@ -59,6 +60,7 @@ class Voting {
         this.votingClosed = true;
         this.$_unlockEmployees();
         this.$_lockedRestaurantWinner();
+        this.$_unlockRestaurants();
     }
 
     registerVote(employer, restaurant_id) {
@@ -99,11 +101,19 @@ class Votings {
     }
     currentVoting() {
         let date = new Date().toLocaleDateString();
-        let voting = this.list.find(el => el.date === date);
-        if (!voting && restaurants.length > 1) {
-            voting = new Voting();
-        };
+        let voting = this.list.find(el => el.date >= date && !el.votingClosed);
         return voting;
+    }
+
+    newVoting() {
+        if (restaurants.length > 1) {
+            throw('Necessário cadastrar mais restaurantes para a votação');
+        };
+
+        if (this.currentVoting()) {
+            throw('Já existe uma votação em andamento');
+        };
+        return new Voting();
     }
 
     push (voting) {

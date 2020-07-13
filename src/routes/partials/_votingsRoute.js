@@ -9,11 +9,23 @@ router.get('/', (req, res) => {
 });
 
 router.get('/currentvoting', (req, res) => {
+    res.status(200).send(votings.currentVoting());
+});
+
+router.post('/newvoting', (req, res) => {
     if (restaurants.length === 0) {
-        res.status(400).send('Erro ao buscar votação! Necessário cadastrar restaurantes para poder iniciar uma votação')
+        res.status(400).send('Erro ao iniciar votação! Necessário cadastrar restaurantes antes de iniciar uma votação')
     } else {
-        res.status(200).send(votings.currentVoting());
+        res.status(201).send(votings.newVoting());
     }
+});
+
+router.post('/endvoting', (req, res) => {
+    let voting = votings.currentVoting();
+    if (voting && !voting.votingClosed) {
+        voting.endVoting();
+    }
+    res.status(201).send('Votação encerrada');
 });
 
 router.post('/:idvoting/vote', (req, res) => {
