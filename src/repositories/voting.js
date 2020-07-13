@@ -22,7 +22,7 @@ class Voting {
         this.id = votings.length +1;
         this.closingTime = config.get('voting').closing_time;
         this.votingClosed = false;
-        this.electeds = [];
+        this.elected = {};
         this.$_setDate();
         this.voteList = [];
         this.$_includeAllRestaurants();
@@ -54,7 +54,7 @@ class Voting {
     $_lockedRestaurantWinner() {
         this.voteList.sort((a, b) => {return b.count - a.count}); // ordena por número de votos
         this.voteList[0].restaurant.setElect(); // O primeiro da lista é o que possui mais votos e será o eleito
-        this.electeds.push(this.voteList[0].restaurant)
+        this.elected = this.voteList[0].restaurant
     }
     endVoting () {
         this.votingClosed = true;
