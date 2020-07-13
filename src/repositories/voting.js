@@ -1,7 +1,7 @@
 const DateUtils = require('../lib/dateUtils');
 var { restaurants } = require('./restaurants');
 var { employees } = require('./employees');
-const config = require('./configs');
+const config = require('config');
 
 let _instance = Symbol();
 let _singletonEnforcer = Symbol();
@@ -20,7 +20,7 @@ class Votes {
 class Voting {
     constructor () {
         this.id = votings.length +1;
-        this.closingTime = config.votingClosingTime;
+        this.closingTime = config.get('voting').closing_time;
         this.votingClosed = false;
         this.electeds = [];
         this.$_setDate();
@@ -60,7 +60,7 @@ class Voting {
         this.votingClosed = true;
         this.$_unlockEmployees();
         this.$_lockedRestaurantWinner();
-        // this.$_unlockRestaurants();
+        this.$_unlockRestaurants();
     }
 
     registerVote(employer, restaurant_id) {
