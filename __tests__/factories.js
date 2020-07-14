@@ -4,10 +4,10 @@ const { Employer } = require("../src/repositories/employees");
 const { Restaurant } = require("../src/repositories/restaurants");
 
 // Class seguindo o Pattern Factory
+//Utilizado para executar testes de integração
 const factory = new function () {
     this.createEmployee = function () {
-        //Utilizado para executar testes de integração
-        let employer = {
+        const employer = {
             name: faker.name.findName(),
             email: faker.internet.email(),
             cpf: faker.br.cpf()
@@ -25,7 +25,6 @@ const factory = new function () {
     }
 
     this.newEmployer = function () {
-        //Utilizado para executar teste unitário de votação
         let employer = new Employer(
             faker.name.findName(),
             faker.br.cpf(),
@@ -35,7 +34,6 @@ const factory = new function () {
     }
 
     this.newRestaurant = function () {
-        //Utilizado para executar teste unitário de votação
         let restaurant = new Restaurant(
             faker.company.companyName(),
             faker.address.streetAddress(),
