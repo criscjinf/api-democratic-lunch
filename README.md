@@ -20,6 +20,16 @@ npm start
 npm test
 ```
 
+###Parâmetros
+```
+Arquivo: config/default.yaml 
+voting:
+  closing_time: horário de encerramento da votação
+
+server:
+  port: porta em que é executado o serviço
+```
+
 
 ## Endpoints:
  ### /restaurants:

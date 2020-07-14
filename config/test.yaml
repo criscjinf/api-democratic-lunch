@@ -1,2 +1,5 @@
 voting:
   closing_time: "11:00"
+
+server:
+  port: "3000"
