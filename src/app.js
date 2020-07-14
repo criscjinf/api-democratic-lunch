@@ -1,5 +1,5 @@
 const  express = require('express')
-const faker = require('./lib/fakerData')
+// const faker = require('./lib/fakerData')
 
 class AppController {
     constructor() {

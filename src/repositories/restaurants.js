@@ -17,7 +17,7 @@ class Restaurant extends ObjectBase {
         this.howManyTimeHaveWeBeen = 0;
         this.lastDayHaveWeBeen = null;
     }
-    setElect() {
+    async setElect() {
         this.locked = true;
         this.howManyTimeHaveWeBeen += 1;
         this.lastDayHaveWeBeen =  new Date().toLocaleDateString();

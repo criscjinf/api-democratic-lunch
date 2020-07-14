@@ -25,15 +25,16 @@ router.post('/newvoting', (req, res) => {
     }
 });
 
-router.post('/endvoting', (req, res) => {
+router.post('/endvoting', async (req, res) => {
     let voting = votings.currentVoting();
     if (voting && !voting.votingClosed) {
-        voting.endVoting();
-    }
-    res.status(201).send('Votação encerrada');
+        res.status(201).send( await voting.endVoting());
+    } else {
+        res.status(400).send('Votação já encerrada anteriormente')
+    };
 });
 
-router.post('/:idvoting/vote', (req, res) => {
+router.post('/:idvoting/vote', async (req, res) => {
     if (!req.body.restaurant_id || !req.body.employer_id) {
         res.status(400).send('Erro ao registrar voto! Os campos restaurant_id e employer_id devem ser preenchidos');
     } else {
@@ -46,7 +47,8 @@ router.post('/:idvoting/vote', (req, res) => {
                 res.status(400).send('Erro ao registrar voto! ID de votação não localizado')
             } else {
                 try {
-                    voting.registerVote(employer, parseInt(req.body.restaurant_id))
+                    console.log(req.body.employer_id);
+                    await voting.registerVote(employer, parseInt(req.body.restaurant_id))
                     res.status(201).send('Voto registrado com sucesso');
                 } catch (error) {
                     res.status(400).send(`${error}`)

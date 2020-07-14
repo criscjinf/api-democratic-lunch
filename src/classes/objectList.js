@@ -22,8 +22,10 @@ class ObjectList {
     get length () {
         return this.list.length
     }
-    forEach(func) {
-        this.list.forEach(func);
+    async forEach(func) {
+        for (const el of this.list) {
+            func(el)
+        }
     };
 }
 

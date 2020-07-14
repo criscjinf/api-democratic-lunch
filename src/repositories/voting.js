@@ -40,8 +40,8 @@ class Voting {
         this.date = date.toLocaleDateString();
         this.date_br = DateUtils.formatDateBr(date);
     }
-    $_unlockEmployees () {
-        employees.forEach(el => el.locked = false);
+    async $_unlockEmployees () {
+        await employees.forEach(el => el.locked = false);
     }
 
     $_unlockRestaurants() {
@@ -51,19 +51,20 @@ class Voting {
         }
     }
 
-    $_lockedRestaurantWinner() {
+    async $_lockedRestaurantWinner() {
         this.voteList.sort((a, b) => {return b.count - a.count}); // ordena por número de votos
-        this.voteList[0].restaurant.setElect(); // O primeiro da lista é o que possui mais votos e será o eleito
+        await this.voteList[0].restaurant.setElect(); // O primeiro da lista é o que possui mais votos e será o eleito
         this.elected = this.voteList[0].restaurant
+        return this.elected
     }
-    endVoting () {
+    async endVoting () {
         this.votingClosed = true;
-        this.$_unlockEmployees();
-        this.$_lockedRestaurantWinner();
+        await this.$_unlockEmployees();
         this.$_unlockRestaurants();
+        return await this.$_lockedRestaurantWinner();
     }
 
-    registerVote(employer, restaurant_id) {
+    async registerVote(employer, restaurant_id) {
         if (employer && employer.locked) {
             throw new Error('Erro ao registrar voto! Funcionario já participou desta votação')
         };
