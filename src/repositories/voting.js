@@ -110,10 +110,10 @@ class Votings {
             throw('Necessário cadastrar mais restaurantes para a votação');
         };
 
-        if (this.currentVoting()) {
-            throw('Já existe uma votação em andamento');
-        };
-        return new Voting();
+        let voting = this.currentVoting()
+        if (!voting) {
+            return new Voting();
+        }
     }
 
     push (voting) {

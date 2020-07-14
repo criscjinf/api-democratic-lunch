@@ -3,7 +3,7 @@ const router = express.Router();
 var { restaurants, Restaurant } = require('../../repositories/restaurants');
 
 router.get('/', (req, res) => {
-    let response = restaurants.filter(el => el.checkFilters(req.query))
+    let response = restaurants.filter(req.query)
     res.status(200).send(response);
 });
 
@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 router.put('/:idrestaurant', (req, res) => {
     let restaurant_id = parseInt(req.params.idrestaurant);
     let restaurant = restaurants.find( el => el.id === restaurant_id)
-        if (restaurant) {
+        if (!restaurant) {
             res.status(400).send('Erro ao atualizar restaurante! Nenhum restaurante encontrado com o ID informado')
         } else {
             restaurant.updateProps(req.body);
@@ -36,15 +36,20 @@ router.put('/:idrestaurant', (req, res) => {
         }
 });
 
-router.delete('/', (req, res) => {
-    let restaurant_id = parseInt(req.params.idemployer);
-    let restaurants = restaurants.find( el => el.id === restaurant_id);
-    if (!employer) {
+router.delete('/:idrestaurant', (req, res) => {
+    let restaurant_id = parseInt(req.params.idrestaurant);
+    let restaurant = restaurants.find( el => el.id === restaurant_id);
+    if (!restaurant) {
         res.status(400).send('Erro ao excluir restaurante! Nenhum restaurante encontrado com o ID informado');
     } else {
-        restaurants = restaurants.filter(el => el.id !== restaurant_id);
+        restaurants.remove(restaurant_id);
         res.status(200).send('Restaurante excluido com sucesso');
     }
+});
+
+router.delete('/', (req, res) => {
+    restaurants.clear();
+    res.status(200).send('Restaurantes excluidos com sucesso');
 });
 
 module.exports = router

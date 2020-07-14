@@ -1,5 +1,7 @@
 const ObjectBase = require('../classes/objectBase');
-var employees = []
+const ObjectList = require('../classes/objectList');
+
+const employees = new ObjectList();
 class Employer extends ObjectBase {
     constructor (name, cpf, email) {
         super (

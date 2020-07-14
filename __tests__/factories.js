@@ -18,8 +18,8 @@ const factory = new function () {
     this.createRestaurant = function () {
         let restaurant = {
             name: faker.company.companyName(),
-            address: faker.address.streetAddress,
-            phone: faker.phone.phoneNumber
+            address: faker.address.streetAddress(),
+            phone: faker.phone.phoneNumber()
         };
         return restaurant
     }
@@ -38,8 +38,8 @@ const factory = new function () {
         //Utilizado para executar teste unitário de votação
         let restaurant = new Restaurant(
             faker.company.companyName(),
-            faker.address.streetAddress,
-            faker.phone.phoneNumber
+            faker.address.streetAddress(),
+            faker.phone.phoneNumber()
         );
         return restaurant
     }

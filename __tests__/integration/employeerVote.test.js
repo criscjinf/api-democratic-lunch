@@ -8,8 +8,8 @@ const { votings } = require('../../src/repositories/voting');
 
 beforeEach(async () => {
     // Em um ambiente normal, limparia a base de testes neste evento para evitar que dados de um teste influencie em outro
-    restaurants.length = 0;
-    employees.length = 0;
+    restaurants.clear();
+    employees.clear();
     votings.deleteAll();
 })
 

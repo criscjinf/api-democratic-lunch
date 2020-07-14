@@ -56,4 +56,10 @@ router.post('/:idvoting/vote', (req, res) => {
     }
 });
 
+router.delete('/', (req, res) => {
+    votings.deleteAll();
+    res.status(200).send('Votações apagadas da base de dados');
+});
+
+
 module.exports = router

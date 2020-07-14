@@ -6,7 +6,7 @@ const { restaurants } = require('../../src/repositories/restaurants');
 
 beforeEach(async () => {
     // Em um ambiente normal, limparia a base de testes neste evento para evitar que dados de um teste influencie em outro
-    restaurants.length = 0
+    restaurants.clear();
 })
 
 describe('Restaurantes', () => {

@@ -1,5 +1,7 @@
 const ObjectBase = require('../classes/objectBase');
-var restaurants = []
+const ObjectList = require('../classes/objectList');
+
+const restaurants = new ObjectList();
 class Restaurant extends ObjectBase {
     constructor (name, address, phone) {
         super(restaurants, [

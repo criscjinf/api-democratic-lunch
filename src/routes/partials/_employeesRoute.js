@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-var { employees, Employer } = require('../../repositories/employees');
+const { employees, Employer } = require('../../repositories/employees');
 
 router.get('/', (req, res) => {
-    let response = employees.filter(el => el.checkFilters(req.query))
+    let response = employees.filter(req.query)
     res.status(200).send(response);
 });
 
@@ -22,8 +22,9 @@ router.post('/', (req, res) => {
                 req.body.cpf,
                 req.body.email
             );
+            res.status(201).json(employer);
         }
-        res.status(201).json(employer);
+        
     }
 });
 
@@ -44,9 +45,14 @@ router.delete('/:idemployer', (req, res) => {
     if (!employer) {
         res.status(400).send('Erro ao excluir funcionário! Nenhum funcionário encontrado com o ID informado');
     } else {
-        employees = employees.filter(el => el.id !== employer_id);
+        employees = employees.remove(employer_id);
         res.status(200).send('Funcionário excluido com sucesso');
     }
+});
+
+router.delete('/', (req, res) => {
+    employees.clear();
+    res.status(200).send('Funcionários excluidos com sucesso');
 });
 
 module.exports = router
