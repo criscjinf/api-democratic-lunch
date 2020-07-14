@@ -1,5 +1,11 @@
 # api-democratic-lunch
 >> Api responsavel por registrar funcionários, resaurantes, registrar os votos, iniciar e finalizar votações
+## Requisitos de sistema
+```
+npm v6.14.5
+Node v12.18.2
+```
+
 ## Instalar dependências
 ```
 npm install
@@ -7,7 +13,7 @@ npm install
 
 ### Rodar em ambiente de desenvolvimento
 ```
-npm dev
+npm run dev
 ```
 
 ### Rodar em ambiente de produção
