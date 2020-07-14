@@ -128,5 +128,11 @@ Alguns possuem um array chamado "lockedProperties" que utilizei apenas para não
 | repositories/votings.js | A classe "votings" aqui foi implementada com paterns Singleton somente para critério de exemplificação, podendo ter sido ao invés disto apenas uma extenciom da objectlist |
 | __tests__/factories.js | Desenvolvida para fins de testes a classe factory baseado no paterns de mesmo nome, gerando instancias de objetos. |
 
-# Observações finais
-> O projeto em Delphi não contempla os cadastros de restaurantes, sendo registrados automaticamente alguns dados Fake.
+## Evolução da api
+> Refaria com sequelize vizando a possibilidade de se adaptar a diferentes bancos de dados <br><br>
+> Implementaria sistema de autenticação por JWT
+
+
+## Observações finais
+> O projeto em Delphi não contempla os cadastros de restaurantes, sendo registrados automaticamente alguns dados Fake.<br><br>
+> Meu objetivo com este projeto foi mostrar um pouco do trabalho me baseando em classes com herança e alguma abstração
