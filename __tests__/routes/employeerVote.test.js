@@ -10,7 +10,7 @@ beforeEach(async () => {
     // Em um ambiente normal, limparia a base de testes neste evento para evitar que dados de um teste influencie em outro
     restaurants.clear();
     employees.clear();
-    votings.deleteAll();
+    votings.clear();
 })
 
 describe('Funcionarios Votando', () => {

@@ -1,7 +1,13 @@
 const request = require("supertest");
 const app = require("../../src/app");
 const factory = require("../factories");
-const { votings } = require("../../src/repositories/voting")
+const { votings } = require("../../src/repositories/voting");
+const { response } = require("../../src/app");
+
+beforeEach(async () => {
+    // Em um ambiente normal, limparia a base de testes neste evento para evitar que dados de um teste influencie em outro
+    votings.clear();
+})
 
 const votingTest = async (employer_id, restaurant_id, status_expect) => {
     let vote = {
@@ -26,7 +32,7 @@ describe('Votação', () => {
         factory.newRestaurant();
         factory.newRestaurant();
         factory.newRestaurant();
-        votings.deleteAll();
+        votings.clear();
         await votingTest(
             employer1.id,
             voted_restaurant.id,
@@ -39,24 +45,5 @@ describe('Votação', () => {
             400
         );
     });
-
-    it('Não deve permitir iniciar uma votação enquanto outra estiver em andamento', async () => {
-        factory.newRestaurant();
-        factory.newRestaurant();
-        factory.newRestaurant();
-        factory.newRestaurant();
-        votings.deleteAll();
-        await request(app)
-            .post('/votings/newvoting')
-            .set('accept', 'application/json')
-            .send()
-            .expect(201);
-
-        await request(app)
-            .post('/votings/newvoting')
-            .set('accept', 'application/json')
-            .send()
-            .expect(400);
-    })
 
 });

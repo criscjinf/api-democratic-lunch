@@ -127,9 +127,9 @@ class Votings {
     get length() {
         return this.list.length
     }
-    deleteAll() {
+    clear() {
         // Implementado para critério de testes simulando a limpeza da base de homologação
-        this.list = [];
+        this.list.length = 0;
     }
     static get getInstance() {
         if(!this[_instance]) {
