@@ -14,28 +14,26 @@ beforeEach(async () => {
 })
 
 describe('Funcionarios Votando', () => {
-    it('Não deve permitir votar mais de uma vez ao dia', () => {
+    it('Não deve permitir votar mais de uma vez ao dia', async () => {
         let voted_restaurant = factory.newRestaurant();
         let employer = factory.newEmployer();
         factory.newRestaurant();//Somente adicionando mais um restaurante a votação        
         let voting = factory.newVoting();
         let voto = {
-            restaurant_id: 1,
-            employer_id: 1
+            restaurant_id: voted_restaurant.id,
+            employer_id: employer.id
         }
-        request(app)
+        await request(app)
             .post(`/votings/${voting.id}/vote`)
             .set('accept', 'application/json')
             .send(voto)
-            .expect(201).end(
-                () => {
-                    request(app)
-                        .post(`/votings/${voting.id}/vote`)
-                        .set('accept', 'application/json')
-                        .send(voto)
-                        .expect(400);
-                }
-            )
+            .expect(201)
+        
+        await request(app)
+            .post(`/votings/${voting.id}/vote`)
+            .set('accept', 'application/json')
+            .send(voto)
+            .expect(400);
     })
 
 });

@@ -21,7 +21,7 @@ const votingTest = async (employer_id, restaurant_id, status_expect) => {
         .send(vote)
         .expect(status_expect);
 
-    voting.endVoting();
+    await voting.endVoting();
 };
 
 describe('Votação', () => {

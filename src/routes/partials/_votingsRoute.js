@@ -47,7 +47,6 @@ router.post('/:idvoting/vote', async (req, res) => {
                 res.status(400).send('Erro ao registrar voto! ID de votação não localizado')
             } else {
                 try {
-                    console.log(req.body.employer_id);
                     await voting.registerVote(employer, parseInt(req.body.restaurant_id))
                     res.status(201).send('Voto registrado com sucesso');
                 } catch (error) {
